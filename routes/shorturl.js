@@ -54,17 +54,10 @@ router.post('/', async (req, res) => {
     });
   } catch (e) {
     console.log(e);
-    // url validation fails
-    if (e.code === 'ERR_INVALID_URL') {
+    // url validation or dns lookup fails
+    if (e.code === 'ERR_INVALID_URL' || 'ENOTFOUND') {
       return res.json({
         error: 'invalid url',
-      });
-    }
-
-    // dns lookup fails
-    if (e.code === 'ENOTFOUND') {
-      return res.json({
-        error: 'Invalid Hostname',
       });
     }
 
